@@ -1,5 +1,0 @@
-Copyright (c) BRAYAM5. Todos los derechos reservados.
-
-Este software y su código fuente son propiedad exclusiva de BRAYAM5.
-Queda prohibida su copia, modificación, distribución, sublicencia o uso
-comercial sin autorización previa y por escrito del autor.
