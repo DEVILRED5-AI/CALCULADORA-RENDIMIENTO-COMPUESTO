@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rendimiento">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#0f7b5f">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEmElEQVR4nO3csU0kQRBG4eJ0PjjEQAaEQBYI8jhMAiEJHDIhBhxCOGOkEWL5gZnp6qrqfp95xuxK/bame9i9s/N/dwZ85U/0G0BexAGJOCARByTigEQckIgDEnFAIg5IxAGJOCARByTigEQckIgDEnFAIg5IxAGJOCARByTigEQckIgDEnFAIg5IxAGJOCARByTigEQckIgDEnFAIg5IxFHSy9Vbh1chjnr6lGHEUU63Mow4Cnm5evtYRodKiKOGngNjRRwFhJRhxJFfVBlGHMkFlmHEkdmPZXin89f16tgndmCsmBzpJCnDiCObPGUYcaSyowzXmIgji1QzY8GGNF7CLBZMjmBpyzDiiJW5DCOOQK3K8CuMOGIknxkL4ghQogzjtNJZlSwWTI5+apVhxNGNaxlOFyeOTm5eL29eL6PfxTbE0VWtRIgjQJVEOK2EWftIu1FlcsS7eb28vn0+eBGPwogj3vvjk5ld3z4fT6Qt4gi2lLFKlQhxRPpUxipJIsQRRpWx2ppI820HccT4sYxV4BThKFvAxcO92aV1P/QSR4Dfj41POj8a4bbS29YyLh7uT/+xzzNW4uiqSRmr00TaThTi6KdtGSu/KUIcSf2yjJVHIsTRyaaxsbWMVds+iKOH3ceTWMThzmmr0QFx+KpbhhGHq9JlGHHkka0MIw4/RTehHxGHi+o3lAVxtDdGGUYczQ1ThhFHrMxlGHG01ecZeTfE0cwAx5NPiKONkbYaK+JoYMgyjDiOG7UMI47OCpVhxHHQeJvQj4hjv4FvKAvi2Gn4MmyAHzV9WqQ+azBDGVZ9cpwuUsJNQNEyrHQcqgPvPgZ7Rv6NqnF8v0Lvj09OiSScTH5KxvHLFWq+kJNsNVZn5//uot/DNjuWvMkizVaGlZsc+4bB8REyYRlWK44ja+y3Czk1RhlWKI4mSxs1eIqqsedovjy//3DPeUNZFJgcHh9cp/POSGVY/jj8RvqPV568DMsfh6uGu9TxyrDkcfTZCX75KvM8I/9G3r/K7lueI+eRgxcZT9LJsfuDe+RDvLwoW41VxqNsk5He59M/cBmWcHK0utl3WLaxy7Bsk8NjG+g0QoYvw1JNDqcDwgyr6CRLHK5bhOZ9TBJcittKtwNCkwQnKcMyTI6eR8fj6zpPGRY+OaIeKuwbIVOVYbGTI/Bx045LzVaGBcYR/iDy4uF+wvXeJCaO8DK2XnnOjAL2HHnK+OibdzVnGdY/jpxlLE7f27RZLLrGkbkMnOq356CMcjrFQRkVxT8hPUUZSfSIg+9jFuUeB2XU5RsHZZTmGAdlVOcVB2UMwCUOyhhD+zgoYxiN4+C3YiNpGQePQQfTLA7KGE+zODYtNmWU0PK2wreqBtN4Q/rjwlNGIV5f9vlyC0IZtXg9IT3tgDLKcfzbSqv/UwVRfP8quzRBGUWl+CE1csr4NUEkQRyQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUD6DxneoZmxXFIaAAAAAElFTkSuQmCC">
+<title>Calculadora de Rendimiento Compuesto</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f4ee;--card:#fff;--ink:#1b1f1d;--mute:#6b726e;--line:#e4e1d8;--acc:#0f7b5f;--acc2:#c9a24a;--neg:#b3402f;--inp:#faf9f5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1211;--card:#161c1a;--ink:#eef1ef;--mute:#8d9792;--line:#242d2a;--acc:#3ddc97;--acc2:#e0b95a;--neg:#ff7a66;--inp:#0f1513}}
+:root[data-theme="dark"]{--bg:#0e1211;--card:#161c1a;--ink:#eef1ef;--mute:#8d9792;--line:#242d2a;--acc:#3ddc97;--acc2:#e0b95a;--neg:#ff7a66;--inp:#0f1513}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 48px}
+h1{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(26px,5vw,38px);margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 24px;font-size:15px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h2{margin:0 0 14px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.f{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+select{width:100%;background:var(--inp);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:15px;outline:none}
+select:focus{border-color:var(--acc)}
+label{display:block;font-size:12.5px;color:var(--mute);margin-bottom:5px}
+.in{position:relative}
+input{width:100%;background:var(--inp);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:15px;outline:none}
+input:focus{border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 20%,transparent)}
+.pre input{padding-left:26px}.suf input{padding-right:28px}
+.pre:before{content:"$";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--mute);font-size:14px}
+.suf:after{content:"%";position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--mute);font-size:14px}
+.full{grid-column:1/-1}
+.hint{font-size:11.5px;color:var(--mute);margin-top:5px}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.k{background:var(--inp);border:1px solid var(--line);border-radius:14px;padding:14px}
+.k span{display:block;font-size:11.5px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+.k b{display:block;font-size:22px;margin-top:4px;font-variant-numeric:tabular-nums}
+.k.hl{background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 16%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--acc) 40%,var(--line))}
+.k.gold b{color:var(--acc2)}
+.pos{color:var(--acc)}
+.chart{margin-top:16px}
+svg{width:100%;height:auto;display:block}
+.tw{max-height:360px;overflow:auto;margin-top:8px;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;white-space:nowrap}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{position:sticky;top:0;background:var(--card);color:var(--mute);font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--line)}
+td{border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+button{background:none;border:1px solid var(--line);color:var(--mute);border-radius:10px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer}
+button:hover{color:var(--ink);border-color:var(--acc)}
+.row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:16px;padding-bottom:4px}
+.tab{display:flex;align-items:center;white-space:nowrap;background:var(--card);border:1px solid var(--line);color:var(--mute);border-radius:12px;padding:9px 14px;font-size:13.5px;cursor:pointer}
+.tab.on{color:var(--ink);border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 15%,transparent)}
+.tab b{margin-left:10px;padding:0 4px;font-weight:400;font-size:16px;line-height:1;color:var(--mute)}
+.tab b:hover{color:var(--neg)}
+#add:disabled{opacity:.4;cursor:not-allowed}
+.f>div{min-width:0}
+input[type=date]{min-width:0;height:46px;display:block;-webkit-appearance:none;appearance:none;line-height:1.2}
+input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:1.2em}
+@media(max-width:520px){.dt{grid-column:1/-1}.f{gap:14px 12px}}
+.err{color:var(--neg);font-size:12.5px;min-height:16px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Calculadora de Rendimiento Compuesto</h1>
+  <p class="sub">Proyecta el crecimiento de tu cuenta de trading operación por operación.</p>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="grid">
+    <div class="card">
+      <h2>Parámetros</h2>
+      <div class="f">
+        <div><label for="ini">Saldo inicial</label><div class="in pre"><input id="ini" type="number" step="any" value="0"></div></div>
+        <div><label for="fin">Saldo final</label><div class="in pre"><input id="fin" type="number" step="any"></div></div>
+        <div><label for="pct">% por operación</label><div class="in suf"><input id="pct" type="number" step="any" value="0"></div></div>
+        <div><label for="n">Número de operaciones</label><div class="in"><input id="n" type="number" min="0" step="1" value="0"></div></div>
+        <div class="dt"><label for="d1">Fecha inicio</label><div class="in"><input id="d1" type="date"></div></div>
+        <div class="dt"><label for="d2">Fecha fin</label><div class="in"><input id="d2" type="date"></div></div>
+        <div><label for="opd">Operaciones por día</label><div class="in"><input id="opd" type="number" min="0" step="1" value="0"></div></div>
+        <div><label for="hab" style="display:flex;gap:8px;align-items:center;margin-top:26px;cursor:pointer"><input id="hab" type="checkbox" style="width:auto"> Solo días hábiles (lun–vie)</label></div>
+        <div><label for="rmod">Tipo de retiro</label><div class="in"><select id="rmod"><option value="pct">% de la ganancia</option><option value="man">Monto manual</option></select></div></div>
+        <div id="retP"><label for="ret">Retiro (% de la ganancia)</label><div class="in suf"><input id="ret" type="number" step="any" value="0"></div></div>
+        <div id="retM" style="display:none"><label for="retm">Retiro manual</label><div class="in pre"><input id="retm" type="number" step="any" value="0"></div></div>
+        <div><label for="desc">Descuento al retiro</label><div class="in suf"><input id="desc" type="number" step="any" value="0"></div></div>
+      </div>
+      <div class="hint full" style="margin-top:12px" id="modo"></div><div class="hint full">Si editas el saldo final, se recalcula el % por operación necesario.</div>
+      <div class="err" id="err"></div>
+      <div style="margin-top:8px"><button id="reset">Restablecer valores</button></div>
+    </div>
+
+    <div class="card">
+      <h2>Resultados</h2>
+      <div class="kpis">
+        <div class="k hl"><span>Saldo final</span><b id="rFin">—</b></div>
+        <div class="k"><span>Ganancia total</span><b id="rGan" class="pos">—</b></div>
+        <div class="k"><span>Rendimiento total</span><b id="rPct">—</b></div>
+        <div class="k"><span>Retiro bruto</span><b id="rBruto">—</b></div>
+        <div class="k gold"><span id="rNetoL">Retiro neto (−16%)</span><b id="rNeto">—</b></div>
+        <div class="k"><span>Saldo tras retiro</span><b id="rQued">—</b></div>
+      </div>
+      <div class="chart"><svg id="svg" viewBox="0 0 600 200" preserveAspectRatio="none" aria-label="Gráfica de crecimiento"></svg></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="row"><h2 style="margin:0">Detalle por operación</h2></div>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Fecha</th><th>Saldo previo</th><th>Ganancia</th><th>Saldo</th></tr></thead>
+      <tbody id="tb"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=v=>"$"+Number(v).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2});
+const DAY=864e5;
+function iso(d){return d.toISOString().slice(0,10)}
+function fechasHoy(){
+  const T=new Date(),S=new Date(Date.UTC(T.getFullYear(),T.getMonth(),T.getDate()));
+  const fm=Date.UTC(S.getUTCFullYear(),S.getUTCMonth()+1,0),q=(fm-S.getTime())/DAY+1;
+  $("d1").value=iso(S);$("d2").value=iso(new Date(q<10?Date.UTC(S.getUTCFullYear(),S.getUTCMonth()+2,0):fm));
+}
+function defaults(){
+  ["ini","fin","pct","n","opd","ret","retm","desc"].forEach(id=>$(id).value=0);
+  fechasHoy();$("hab").checked=false;$("rmod").value="pct";auto=true;
+  update("reset");
+}
+function num(id){const v=parseFloat($(id).value);return isNaN(v)?null:v}
+let auto=true;
+const IDS=["ini","fin","pct","n","d1","d2","opd","hab","rmod","ret","retm","desc"],KEY="crc_ajustes_v1";
+let tabs=[],act=0,cnt=2,qued=0;const KEY2="crc_pestanas_v3";
+function cur(){const o={_auto:auto};IDS.forEach(id=>o[id]=id==="hab"?$(id).checked:$(id).value);return o}
+function apply(o){IDS.forEach(id=>{if(id in o){if(id==="hab")$(id).checked=!!o[id];else $(id).value=o[id]}});auto=o._auto!==false}
+function save(){try{if(tabs[act])Object.assign(tabs[act],cur());localStorage.setItem(KEY2,JSON.stringify({tabs,act,cnt}))}catch(e){}}
+function load(){try{let j=JSON.parse(localStorage.getItem(KEY2));
+  if(!j)return false;
+  tabs=j.tabs;act=Math.min(j.act,tabs.length-1);cnt=j.cnt;apply(tabs[act]);return true}catch(e){return false}}
+function renderTabs(){$("tabs").innerHTML=tabs.map((t,i)=>`<div class="tab${i===act?" on":""}" data-i="${i}"><span>Proyección ${i+1}</span>${tabs.length>1?`<b data-x="${i}" title="Cerrar">×</b>`:""}</div>`).join("")+`<button id="add" ${tabs.length>=10?'disabled title="Máximo 10 pestañas"':""}>+ Nueva</button>`}
+function switchTab(i){save();act=i;apply(tabs[act]);update("load")}
+function closeTab(i){if(tabs.length<2)return;tabs.splice(i,1);if(i<act)act--;else if(i===act)act=Math.min(act,tabs.length-1);apply(tabs[act]);update("load")}
+function addTab(){
+  if(tabs.length>=10)return;save();
+  const o=Object.assign({},tabs[act]);o.name="Proyección "+cnt++;o.ini=+qued.toFixed(2);o.fin="";o._auto=true;
+  const B=o.d2?new Date(o.d2+"T00:00:00Z"):null,T=new Date();
+  const S=B?new Date(B.getTime()+DAY):new Date(Date.UTC(T.getFullYear(),T.getMonth(),T.getDate()));
+  const finMes=Date.UTC(S.getUTCFullYear(),S.getUTCMonth()+1,0),quedan=(finMes-S.getTime())/DAY+1;
+  o.d1=iso(S);
+  o.d2=iso(new Date(quedan<10?Date.UTC(S.getUTCFullYear(),S.getUTCMonth()+2,0):finMes));
+  o.rmod="man";o.retm="0";o.ret="0";
+  tabs.push(o);act=tabs.length-1;apply(o);update("d1")}
+$("tabs").addEventListener("click",e=>{const x=e.target.closest("[data-x]");if(x)return closeTab(+x.dataset.x);
+  if(e.target.closest("#add"))return addTab();const t=e.target.closest(".tab");if(t&&+t.dataset.i!==act)switchTab(+t.dataset.i)});
+function diasLista(a,b,hab){
+  const out=[];if(!a||!b||b<a)return out;
+  for(let t=a.getTime(),i=0;t<=b.getTime()&&i<1500;t+=DAY,i++){const d=new Date(t).getUTCDay();if(hab&&(d===0||d===6))continue;out.push(t)}
+  return out;
+}
+function update(source){
+  const err=$("err");err.textContent="";
+  const ini=num("ini")||0,ret=num("ret")??0,desc=num("desc")??0;
+  const opd=Math.max(0,Math.floor(num("opd")||0));
+  const a=$("d1").value?new Date($("d1").value+"T00:00:00Z"):null,b=$("d2").value?new Date($("d2").value+"T00:00:00Z"):null;
+  if(a&&b&&b<a)err.textContent="La fecha fin debe ser posterior a la inicio.";
+  const dias=diasLista(a,b,$("hab").checked);
+  if(source==="n")auto=false;
+  else if(["d1","d2","opd","hab","reset"].includes(source))auto=true;
+  if(auto&&dias.length)$("n").value=dias.length*opd;
+  const n=Math.floor(num("n")||0);
+  $("modo").textContent=auto?`Automático: ${dias.length} días × ${opd} operaciones = ${n} operaciones. Si cambias el número de operaciones, se usará tu valor manual.`:`Manual: ${n} operaciones repartidas entre ${dias.length} días. Cambia fechas u operaciones por día para volver al modo automático.`;
+  save();renderTabs();
+  let pct=num("pct")||0;
+  if(source==="fin"){
+    const f=num("fin");
+    if(f!=null&&ini>0&&n>0&&f>0){pct=(Math.pow(f/ini,1/n)-1)*100;$("pct").value=+pct.toFixed(6)}
+  }
+  const r=pct/100;
+  const fin=ini*Math.pow(1+r,n);
+  if(source!=="fin")$("fin").value=+fin.toFixed(2);
+  const man=$("rmod").value==="man";
+  $("retP").style.display=man?"none":"";$("retM").style.display=man?"":"none";
+  const gan=fin-ini, bruto=man?Math.max(0,num("retm")||0):gan*(ret/100), neto=bruto*(1-desc/100);
+  if(man&&bruto>fin)err.textContent="El retiro manual supera el saldo final.";
+  $("rFin").textContent=fmt(fin);
+  $("rGan").textContent=fmt(gan);$("rGan").style.color=gan<0?"var(--neg)":"";
+  $("rPct").textContent=(ini>0?(fin/ini-1)*100:0).toLocaleString("es",{maximumFractionDigits:2})+"%";
+  $("rBruto").textContent=fmt(bruto);
+  $("rNetoL").textContent="Retiro neto (−"+desc+"%)";
+  $("rNeto").textContent=fmt(neto);
+  qued=fin-bruto;$("rQued").textContent=fmt(fin-bruto);
+  const N=Math.min(n,3000);let bal=ini,rows="",pts=[ini];
+  for(let i=1;i<=N;i++){
+    const prev=bal;bal=prev*(1+r);pts.push(bal);
+    let ds="—";
+    if(dias.length){const t=dias[Math.min(dias.length-1,Math.floor((i-1)*dias.length/N))];ds=new Date(t).toLocaleDateString("es",{weekday:"short",day:"2-digit",month:"short",year:"numeric",timeZone:"UTC"})}
+    rows+=`<tr><td>${i}</td><td>${ds}</td><td>${fmt(prev)}</td><td class="${bal>=prev?"pos":""}" ${bal<prev?'style="color:var(--neg)"':""}>${fmt(bal-prev)}</td><td>${fmt(bal)}</td></tr>`;
+  }
+  $("tb").innerHTML=rows;
+  chart(pts);
+}
+function chart(p){
+  const W=600,H=200,pad=8,mn=Math.min(...p),mx=Math.max(...p),rg=(mx-mn)||1;
+  const xy=p.map((v,i)=>[pad+(W-2*pad)*i/Math.max(p.length-1,1),H-pad-(H-2*pad)*(v-mn)/rg]);
+  const line=xy.map(q=>q[0].toFixed(1)+","+q[1].toFixed(1)).join(" ");
+  $("svg").innerHTML=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--acc)" stop-opacity=".35"/><stop offset="1" stop-color="var(--acc)" stop-opacity="0"/></linearGradient></defs>
+  <polygon points="${pad},${H} ${line} ${W-pad},${H}" fill="url(#g)"/>
+  <polyline points="${line}" fill="none" stroke="var(--acc)" stroke-width="2.5" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>`;
+}
+["ini","pct","n","d1","d2","opd","hab","rmod","ret","retm","desc"].forEach(id=>$(id).addEventListener("input",()=>update(id)));
+$("fin").addEventListener("input",()=>update("fin"));
+$("reset").addEventListener("click",defaults);
+["ini","fin","pct","n","opd","ret","retm","desc"].forEach(id=>{
+  const el=$(id);
+  el.addEventListener("focus",()=>{if(el.value!==""&&parseFloat(el.value)===0)el.value=""});
+  el.addEventListener("blur",()=>{if(el.value!==""&&!isNaN(parseFloat(el.value)))return;
+    const libre=id==="fin"||id==="n";if(!libre)el.value="0";update(libre?undefined:id);if(id==="n"&&el.value==="")el.value="0"});
+});
+if(load()){if(!$("d1").value&&!$("d2").value)fechasHoy();update("load")}else{tabs=[{name:"Proyección 1"}];act=0;cnt=2;defaults()}
+</script>
+</body>
+</html>
