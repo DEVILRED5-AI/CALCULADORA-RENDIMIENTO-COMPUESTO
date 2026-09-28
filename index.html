@@ -66,6 +66,9 @@ button:hover{color:var(--ink);border-color:var(--acc)}
 input[type=date]{min-width:0;height:46px;display:block;-webkit-appearance:none;appearance:none;line-height:1.2}
 input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:1.2em}
 @media(max-width:520px){.dt{grid-column:1/-1}.f{gap:14px 12px}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:10}
+.modal .card{width:100%;max-width:360px}
+#delP:hover{color:var(--neg);border-color:var(--neg)}
 .err{color:var(--neg);font-size:12.5px;min-height:16px;margin-top:8px}
 </style>
 </head>
@@ -74,6 +77,7 @@ input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:1.2em}
   <h1>Calculadora de Rendimiento Compuesto</h1>
   <p class="sub">Proyecta el crecimiento de tu cuenta de trading operación por operación.</p>
 
+  <div class="tabs" id="perfiles" style="margin-bottom:10px"></div>
   <div class="tabs" id="tabs"></div>
   <div class="grid">
     <div class="card">
@@ -120,6 +124,10 @@ input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:1.2em}
   </div>
 </div>
 
+<div class="modal" id="formP"><div class="card"><h2 id="fpT">Nuevo perfil</h2>
+  <label for="fpN">Nombre del usuario</label><input id="fpN" type="text" maxlength="24" placeholder="Nombre" autocomplete="off">
+  <div style="margin-top:14px;display:flex;gap:8px"><button id="fpOk">Crear perfil</button><button id="fpNo">Cancelar</button></div>
+  <div class="err" id="fpE"></div></div></div>
 <script>
 const $=id=>document.getElementById(id);
 const fmt=v=>"$"+Number(v).toLocaleString("es",{minimumFractionDigits:2,maximumFractionDigits:2});
@@ -138,13 +146,40 @@ function defaults(){
 function num(id){const v=parseFloat($(id).value);return isNaN(v)?null:v}
 let auto=true;
 const IDS=["ini","fin","pct","n","d1","d2","opd","hab","rmod","ret","retm","desc"],KEY="crc_ajustes_v1";
-let tabs=[],act=0,cnt=2,qued=0;const KEY2="crc_pestanas_v3";
+let tabs=[],act=0,cnt=2,qued=0,perfiles=[],pact=0,delArm=false,delT;const KEY3="crc_pestanas_v3",KEY4="crc_perfiles_v4";
 function cur(){const o={_auto:auto};IDS.forEach(id=>o[id]=id==="hab"?$(id).checked:$(id).value);return o}
 function apply(o){IDS.forEach(id=>{if(id in o){if(id==="hab")$(id).checked=!!o[id];else $(id).value=o[id]}});auto=o._auto!==false}
-function save(){try{if(tabs[act])Object.assign(tabs[act],cur());localStorage.setItem(KEY2,JSON.stringify({tabs,act,cnt}))}catch(e){}}
-function load(){try{let j=JSON.parse(localStorage.getItem(KEY2));
-  if(!j)return false;
-  tabs=j.tabs;act=Math.min(j.act,tabs.length-1);cnt=j.cnt;apply(tabs[act]);return true}catch(e){return false}}
+function save(){try{if(tabs[act])Object.assign(tabs[act],cur());
+  if(perfiles[pact]){perfiles[pact].tabs=tabs;perfiles[pact].act=act;perfiles[pact].cnt=cnt}
+  localStorage.setItem(KEY4,JSON.stringify({perfiles,pact}))}catch(e){}}
+function cargarPerfil(){const P=perfiles[pact];tabs=P.tabs;act=Math.min(P.act||0,tabs.length-1);cnt=P.cnt||2;apply(tabs[act])}
+function load(){try{const j=JSON.parse(localStorage.getItem(KEY4));
+  if(j&&j.perfiles&&j.perfiles.length){perfiles=j.perfiles;pact=Math.min(j.pact||0,perfiles.length-1)}
+  else{const o=JSON.parse(localStorage.getItem(KEY3));if(!o||!o.tabs)return false;perfiles=[{id:Date.now(),nombre:"Perfil 1",tabs:o.tabs,act:o.act,cnt:o.cnt}];pact=0}
+  cargarPerfil();return true}catch(e){return false}}
+function esc(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderPerfiles(){$("perfiles").innerHTML=perfiles.map((p,i)=>`<div class="tab${i===pact?" on":""}" data-p="${i}">👤 ${esc(p.nombre)}</div>`).join("")
+  +`<button id="addP" ${perfiles.length>=5?'disabled title="Máximo 5 perfiles"':""}>+ Perfil</button>`
+  +(perfiles.length>1?`<button id="delP">${delArm?"¿Seguro? Toca otra vez":"Eliminar perfil"}</button>`:"")}
+function abrirForm(){$("fpN").value="";$("fpE").textContent="";$("fpNo").style.display=perfiles.length?"":"none";
+  $("fpT").textContent=perfiles.length?"Nuevo perfil":"Crea tu perfil";$("formP").style.display="flex";setTimeout(()=>$("fpN").focus(),50)}
+function cerrarForm(){$("formP").style.display="none"}
+function crearPerfil(){const n=$("fpN").value.trim().slice(0,24);
+  if(!n){$("fpE").textContent="Escribe un nombre.";return}
+  if(perfiles.length>=5){$("fpE").textContent="Máximo 5 perfiles.";return}
+  save();tabs=[{name:"Proyección 1"}];act=0;cnt=2;
+  perfiles.push({id:Date.now(),nombre:n,tabs,act:0,cnt:2});pact=perfiles.length-1;delArm=false;
+  defaults();cerrarForm()}
+function cambiarPerfil(i){save();pact=i;cargarPerfil();update("load")}
+function eliminarPerfil(){if(perfiles.length<2)return;perfiles.splice(pact,1);pact=Math.min(pact,perfiles.length-1);cargarPerfil();update("load")}
+$("perfiles").addEventListener("click",e=>{
+  if(e.target.closest("#addP")){if(perfiles.length<5)abrirForm();return}
+  if(e.target.closest("#delP")){
+    if(!delArm){delArm=true;renderPerfiles();delT=setTimeout(()=>{delArm=false;renderPerfiles()},4000)}
+    else{clearTimeout(delT);delArm=false;eliminarPerfil()}return}
+  const t=e.target.closest("[data-p]");if(t&&+t.dataset.p!==pact){delArm=false;cambiarPerfil(+t.dataset.p)}});
+$("fpOk").addEventListener("click",crearPerfil);$("fpNo").addEventListener("click",cerrarForm);
+$("fpN").addEventListener("keydown",e=>{if(e.key==="Enter")crearPerfil()});
 function renderTabs(){$("tabs").innerHTML=tabs.map((t,i)=>`<div class="tab${i===act?" on":""}" data-i="${i}"><span>Proyección ${i+1}</span>${tabs.length>1?`<b data-x="${i}" title="Cerrar">×</b>`:""}</div>`).join("")+`<button id="add" ${tabs.length>=10?'disabled title="Máximo 10 pestañas"':""}>+ Nueva</button>`}
 function switchTab(i){save();act=i;apply(tabs[act]);update("load")}
 function closeTab(i){if(tabs.length<2)return;tabs.splice(i,1);if(i<act)act--;else if(i===act)act=Math.min(act,tabs.length-1);apply(tabs[act]);update("load")}
@@ -177,7 +212,7 @@ function update(source){
   if(auto&&dias.length)$("n").value=dias.length*opd;
   const n=Math.floor(num("n")||0);
   $("modo").textContent=auto?`Automático: ${dias.length} días × ${opd} operaciones = ${n} operaciones. Si cambias el número de operaciones, se usará tu valor manual.`:`Manual: ${n} operaciones repartidas entre ${dias.length} días. Cambia fechas u operaciones por día para volver al modo automático.`;
-  save();renderTabs();
+  save();renderTabs();renderPerfiles();
   let pct=num("pct")||0;
   if(source==="fin"){
     const f=num("fin");
@@ -224,7 +259,7 @@ $("reset").addEventListener("click",defaults);
   el.addEventListener("blur",()=>{if(el.value!==""&&!isNaN(parseFloat(el.value)))return;
     const libre=id==="fin"||id==="n";if(!libre)el.value="0";update(libre?undefined:id);if(id==="n"&&el.value==="")el.value="0"});
 });
-if(load()){if(!$("d1").value&&!$("d2").value)fechasHoy();update("load")}else{tabs=[{name:"Proyección 1"}];act=0;cnt=2;defaults()}
+if(load()){if(!$("d1").value&&!$("d2").value)fechasHoy();update("load")}else{tabs=[{name:"Proyección 1"}];act=0;cnt=2;defaults();abrirForm()}
 </script>
 </body>
 </html>
